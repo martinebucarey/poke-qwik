@@ -1,30 +1,21 @@
 import {
   $,
   component$,
+  useContext,
   useOnDocument,
-  useStore,
   useTask$,
 } from '@builder.io/qwik';
 import type { DocumentHead } from '@builder.io/qwik-city';
 import { PokemonImage } from '~/components/pokemons/pokemon-image';
+import { PokemonListContext } from '~/context/pokemon/pokemon-list.context';
 import { getSmallPokemons } from '~/helpers/get-small-pokemons';
-import type { SmallPokemon } from '~/interfaces';
 
 // import styles from '../../styles.css?inline'
-interface PokemonPageState {
-  currentPage: number;
-  isLoading: boolean;
-  pokemons: SmallPokemon[];
-}
 
 export default component$(() => {
   // useStylesScoped$(styles); //aplica los estilos solo para el componente
 
-  const pokemonState = useStore<PokemonPageState>({
-    currentPage: 0,
-    isLoading: true,
-    pokemons: [],
-  });
+  const pokemonState = useContext(PokemonListContext);
 
   // useVisibleTask$(async ({ track }) => {
   //   // el track es para que no solo se ejecute cuando se crea el componente
